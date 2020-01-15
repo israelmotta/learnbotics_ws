@@ -15,7 +15,7 @@
 	<joint name="base_to_capa" type="fixed">
     <parent link="base_link"/>
     <child link="Capa"/>
-    <origin rpy="0 0 0" xyz="0.062575 -0.038531 0.047"/>
+    <origin rpy="0 0 0" xyz="0.062575 -0.038531 0.0465"/>
  	</joint>  
 
   <!---->
@@ -130,7 +130,7 @@
   <joint name="Robot_to_sensor" type="fixed">
     <parent link="Capa"/>
     <child link="base_sensor"/>
-    <origin rpy="0 0 0" xyz="-0.06 0.041 0.073"/> 
+    <origin rpy="0 -0.0261799 3.14159" xyz="-0.06 0.041 0.091"/> 
   </joint>
 
   <!---->
