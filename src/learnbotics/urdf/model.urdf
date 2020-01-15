@@ -1,0 +1,391 @@
+<?xml version="1.0" ?>
+
+<robot name="RobotC2_0_0" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Included URDF/XACRO Files -->
+  <xacro:include filename="$(find learnbotics)/urdf/lidar.xacro" />
+  <xacro:include filename="$(find learnbotics)/urdf/camera.xacro" />
+
+	
+  <link name="base_link">
+
+ 	</link>
+
+
+	<joint name="base_to_capa" type="fixed">
+    <parent link="base_link"/>
+    <child link="Capa"/>
+    <origin rpy="0 0 0" xyz="0.062575 -0.038531 0.047"/>
+ 	</joint>  
+
+  <!---->
+  <joint name="Chassi1_SuportDyn1" type="fixed">
+    <parent link="Chassi1"/>
+    <child link="SuportDyn1"/>
+    <origin rpy="0  0  0" xyz="-0.03979  0.04602 -0.0216"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Chassi1_Suport_Dyn2" type="fixed">
+    <parent link="Chassi1"/>
+    <child link="Suport_Dyn2"/>
+    <origin rpy="0  0  0" xyz="-0.03977 -0.04547 -0.0195"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Capa_Chassi2" type="fixed">
+    <parent link="Capa"/>
+    <child link="Chassi2"/>
+    <origin rpy="0  0  0" xyz="-0.03643  0.04251  0.04009"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  
+  <!---->
+  <joint name="Suport_Dyn2_Roda_learn2" type="continuous"> 
+    <parent link="Suport_Dyn2"/>
+    <child link="Roda_learn2"/>
+    <origin rpy="-1.5707  0      0" xyz="-0.01219 -0.01512 -0.00839"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="-1.0" lower="-1.79769e+308" upper="1.79769e+308" velocity="-1.0"/>
+  </joint>
+
+  <!---->
+  <joint name="Chassi1_Chassi3" type="fixed">
+    <parent link="Chassi1"/>
+    <child link="Chassi3"/>
+    <origin rpy="0  0  0" xyz="0.04442 -0.00052 -0.0227"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Chassi2_Chassi1" type="fixed">
+    <parent link="Chassi2"/>
+    <child link="Chassi1"/>
+    <origin rpy="0  0  0" xyz="-0.0095  -0.00232 -0.0188"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Chassi3_Segurabola" type="fixed">
+    <parent link="Chassi3"/>
+    <child link="Segurabola"/>
+    <origin rpy="0  0  0" xyz="-0.00999  0.00094 -0.01665"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Segurabola_Empurrabola" type="fixed">
+    <parent link="Segurabola"/>
+    <child link="Empurrabola"/>
+    <origin rpy="0  0  0" xyz="0 -0.00109 -0.00914"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Empurrabola_Esfera" type="continuous">
+    <parent link="Empurrabola"/>
+    <child link="Esfera"/>
+    <origin rpy="0  0  0" xyz="0    0   -0.01"/>
+    <axis xyz="0  -1  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Esfera_Esfera2" type="continuous">
+    <parent link="Esfera"/>
+    <child link="Esfera2"/>
+    <origin rpy="0  0  0" xyz="0    0   0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="Esfera2_Esfera3" type="continuous">
+    <parent link="Esfera2"/>
+    <child link="Esfera3"/>
+    <origin rpy="0  0  0" xyz="0 0 0"/>
+    <axis xyz="-1  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <!---->
+  <joint name="SuportDyn1_Roda_learn" type="continuous">
+    <parent link="SuportDyn1"/>
+    <child link="Roda_learn"/>
+    <origin rpy="1.5707  0 0" xyz="-0.01218  0.01477 -0.00629"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="-1.0" lower="-1.79769e+308" upper="1.79769e+308" velocity="-1.0"/>
+  </joint>
+
+  <!---->
+  <joint name="Robot_to_sensor" type="fixed">
+    <parent link="Capa"/>
+    <child link="base_sensor"/>
+    <origin rpy="0 0 0" xyz="-0.06 0.041 0.073"/> 
+  </joint>
+
+  <!---->
+  <joint name="Robot_to_camera" type="fixed">
+    <parent link="Capa"/>
+    <child link="base_camera"/>
+    <origin rpy="0 0 0" xyz="0.02 0.041 0.058"/>
+  </joint>
+
+
+  <link name="Capa">
+    <inertial>
+      <mass value="0.078"/>
+      <origin rpy="0  0  0" xyz="-0.062575 0.038531 0.068196"/>
+      <inertia ixx="1.100e-4" ixy="1.220e-7" ixz="1.165e-5" iyy="1.956e-4" iyz="-6.124e-7" izz="2.917e-4"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="-0.062575 0.038531 0.068196"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Capa.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="-0.06257  0.03853  0.06819"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Capa.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Suport_Dyn2">
+    <inertial>
+      <mass value="0.012"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.79e-06" ixy="4.673e-9" ixz="4.445e-9" iyy="1.004e-5" iyz="-2.468e-7" izz="8.760e-6"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Suport_Dyn2.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Suport_Dyn2.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Chassi1">
+    <inertial>
+      <mass value="0.102"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.581e-4" ixy="1.927e-9" ixz="-2.079e-6" iyy="2.334e-4" iyz="-1.379e-9" izz="3.755e-4"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi1.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi1.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Chassi2">
+    <inertial>
+      <mass value="0.07"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="6.493e-05" ixy="-8.014e-9" ixz="9.92e-06" iyy="2.235e-4" iyz="1.041e-9" izz="2.834e-4"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi2.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi2.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Chassi3">
+    <inertial>
+      <mass value="0.036"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="5.101e-05" ixy="-6.306e-9" ixz="-1.261e-6" iyy="1.006e-5" iyz="3.993e-10" izz="5.812e-05"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi3.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Chassi3.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Empurrabola">
+    <inertial>
+      <mass value="0.006"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="3.9e-07" ixy="9.962e-13" ixz="-2.525e-15" iyy="3.930e-7" iyz="-9.457e-15" izz="4.073e-7"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Empurrabola.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Empurrabola.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Esfera">
+    <inertial>
+      <mass value="0.004"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.7e-07" ixy="9.406e-16" ixz="0" iyy="1.755e-7" iyz="3.080e-16" izz="1.754e-7"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Esfera2">
+    <inertial>
+      <mass value="0.004"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.7e-07" ixy="9.406e-16" ixz="0" iyy="1.755e-7" iyz="3.080e-16" izz="1.754e-7"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Esfera3">
+    <inertial>
+      <mass value="0.004"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.7e-07" ixy="9.406e-16" ixz="0" iyy="1.755e-7" iyz="3.080e-16" izz="1.754e-7"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Esfera 15mm.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Roda_learn2">
+    <inertial>
+      <mass value="0.027"/>
+      <origin rpy="1.571  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.095e-05" ixy="3.123e-11" ixz="-3.598e-12" iyy="2.138e-05" iyz="-4.323e-11" izz="1.095e-05"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="1.5707 0 1.5707" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Roda_learn.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="1.5707 0 1.5707" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Roda_learn.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Roda_learn">
+    <inertial>
+      <mass value="0.027"/>
+      <origin rpy="-1.571  0  0" xyz="0 0  0"/>
+      <inertia ixx="1.095e-05" ixy="3.123e-11" ixz="-3.598e-12" iyy="2.138e-05" iyz="-4.323e-11" izz="1.095e-05"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="1.5707 0 0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Roda_learn.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="1.5707 0 0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Roda_learn.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="Segurabola">
+    <inertial>
+      <mass value="0.012"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="2.33e-06" ixy="-2.214e-9" ixz="1.715e-9" iyy="2.529e-6" iyz="1.895e-9" izz="3.159e-6"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Segurabola.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/Segurabola.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="SuportDyn1">
+    <inertial>
+      <mass value="0.012"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1.79e-06" ixy="-4.708e-9" ixz="4.631e-9" iyy="9.955e-6" iyz="2.453e-7" izz="8.697e-6"/>
+    </inertial>
+    <collision name="RobotC2_0_0__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/SuportDyn1.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <visual name="RobotC2_0_0__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://learnbotics/meshes/SuportDyn1.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+ </robot> 
