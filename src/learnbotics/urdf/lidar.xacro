@@ -32,14 +32,11 @@
           <stddev>0.02</stddev>
         </noise>
       </ray>
-    </sensor>
+      </sensor>
   </gazebo>
-  
+
   <link name="base_sensor">
-  </link>
-    
-  <link name="Lidar">
-    <visual>
+  <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://learnbotics/meshes/vlp16b.stl" scale="0.5 0.5 0.5"/>
@@ -60,9 +57,27 @@
       <inertia ixx="0.000909131" iyy="0.000909131" izz="0.001107105" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
-  <joint name="Base_to_Lidar" type="fixed">
+    
+  <link name="Lidar">
+        <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.000909131" iyy="0.000909131" izz="0.001107105" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+  </link>
+  <joint name="Base_to_Lidar" type="revolute">
     <parent link="base_sensor"/>
     <child link="Lidar"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="-1" lower="-10000000000000000" upper="10000000000000000" velocity="10"/>
   </joint>
+
+  <gazebo>
+  <plugin name="gazebo_lidar_plugin" filename="libvelodyne_plugin.so">
+  <!-- /home/israel/lidar_ws/devel/lib/libvelodyne_plugin.so -->
+      <test>Base_to_Lidar</test>
+      <velocity>10</velocity>
+      </plugin>
+  </gazebo>
 </robot> 
